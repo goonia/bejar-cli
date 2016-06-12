@@ -23,6 +23,23 @@ class Bejarcli < Thor
 
   desc "up", "start webserver"
   def up
+    f = File.new("config.ru", "w")
+    f.puts "Bundler.require\n\n"
+    f.puts "require_relative 'bejar/main'"
+    f.puts  "require_relative 'bejar/routes/bejar.rb'"
+
+    Dir.chdir("bejar/routes") do
+      Dir.entries(Dir.pwd).each do |item|
+        next if item == "." || item == ".."
+        next unless File.directory? item
+        f.puts "require_relative 'bejar/routes/#{item}/#{item}.rb'"
+        puts item
+      end
+    end
+
+    f.puts "run Bejar"
+    f.close
+
     system("rackup -p 2048")
   end
 
