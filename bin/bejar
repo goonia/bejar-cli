@@ -21,6 +21,11 @@ class Bejarcli < Thor
 
   end
 
+  desc "up", "start webserver"
+  def up
+    system("rackup -p 2048")
+  end
+
 end
 
 Bejarcli.start(ARGV)
