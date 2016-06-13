@@ -40,6 +40,8 @@ class Bejarcli < Thor
     f.puts "run Bejar"
     f.close
 
+    system("rake db:migrate")
+
     system("rackup -p 2048")
   end
 
