@@ -45,6 +45,16 @@ class Bejarcli < Thor
     system("rackup -p 2048")
   end
 
+  desc "new", "Create new plugin"
+  def new(name)
+    Dir.chdir(Dir.pwd + "/bejar/routes") do
+      Dir.mkdir(name)
+      Dir.chdir(name) do
+        f = File.new("#{name}.rb", "w")
+        f.close
+      end
+    end
+  end
 end
 
 Bejarcli.start(ARGV)
