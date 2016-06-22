@@ -5,134 +5,20 @@ require 'thor'
 class Bejarcli < Thor
 
   desc "init", "init a bejar project"
-  def init(project)
-
-    if File.exist? project
-      puts "#{project} directory currently exists."
-    else
-      Dir.mkdir(project)
-      puts "Project inited"
-      Dir.chdir(Dir.pwd + "/#{project}") do
-        system("git clone git@github.com:goonia/bejar.git .")
-        puts "project cloned"
-        system("rm -rf .git/")
-      end
-    end
-
+  def init project
+    Bejar.init project
   end
 
   desc "up", "start webserver"
   def up
-    f = File.new("config.ru", "w")
-    f.puts "Bundler.require\n\n"
-    f.puts "require_relative 'bejar/main'"
-
-    # Load Helpers
-    f.puts  "require_relative 'bejar/helpers/bejar.rb'"
-    Dir.chdir("bejar/helpers") do
-      Dir.entries(Dir.pwd).each do |item|
-        next if item == "." || item == ".."
-        next unless File.directory? item
-        f.puts "require_relative 'bejar/helpers/#{item}/#{item}.rb'"
-        puts item
-      end
-    end
-
-    # Load Configs
-    f.puts  "require_relative 'bejar/configs/bejar.rb'"
-    Dir.chdir("bejar/configs") do
-      Dir.entries(Dir.pwd).each do |item|
-        next if item == "." || item == ".."
-        next unless File.directory? item
-        f.puts "require_relative 'bejar/configs/#{item}/#{item}.rb'"
-        puts item
-      end
-    end
-
-
-
-    # Load Models
-    f.puts  "require_relative 'bejar/models/bejar.model.rb'"
-    Dir.chdir("bejar/models") do
-      Dir.entries(Dir.pwd).each do |item|
-        next if item == "." || item == ".."
-        next unless File.directory? item
-        f.puts "require_relative 'bejar/models/#{item}/#{item}.model.rb'"
-        puts item
-      end
-    end
-
-    # Load Routes
-    f.puts  "require_relative 'bejar/routes/bejar.rb'"
-    Dir.chdir("bejar/routes") do
-      Dir.entries(Dir.pwd).each do |item|
-        next if item == "." || item == ".."
-        next unless File.directory? item
-        f.puts "require_relative 'bejar/routes/#{item}/#{item}.rb'"
-        puts item
-      end
-    end
-
-    f.puts """
-    run Rack::URLMap.new({
-      '/user' => BejarPublic,
-      '/' => Bejar
-    })
-    """
-    f.close
-
-    system("rake db:migrate")
-
-    system("rackup -p 2048")
+    Bejar.up
   end
 
   desc "new", "Create new plugin"
-  def new(job, name)
-
-    if job == "plugin"
-      Dir.chdir(Dir.pwd + "/bejar/routes") do
-        Dir.mkdir(name)
-        Dir.chdir(name) do
-          f = File.new("#{name}.rb", "w")
-          f.close
-        end
-      end
-
-      Dir.chdir(Dir.pwd + "/bejar/configs") do
-        Dir.mkdir(name)
-        Dir.chdir(name) do
-          f = File.new("#{name}.rb", "w")
-          f.puts("class Bejar")
-          f.puts("end")
-          f.close
-        end
-      end
-
-      Dir.chdir(Dir.pwd + "/bejar/helpers") do
-        Dir.mkdir(name)
-        Dir.chdir(name) do
-          f = File.new("#{name}.rb", "w")
-          f.close
-        end
-      end
-
-      Dir.chdir(Dir.pwd + "/bejar/models") do
-        Dir.mkdir(name)
-        Dir.chdir(name) do
-          f = File.new("#{name}.model.rb", "w")
-          f.close
-        end
-      end
-
-      Dir.chdir(Dir.pwd + "/bejar/views") do
-        Dir.mkdir(name)
-        Dir.chdir(name) do
-          f = File.new("#{name}.model.rb", "w")
-          f.close
-        end
-      end
-    end
+  def new job, name
+      Bejar.new job, name
   end
+
 end
 
 Bejarcli.start(ARGV)

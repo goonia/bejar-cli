@@ -1,7 +1,7 @@
+require_relative 'bejar/init'
+require_relative 'bejar/up'
+require_relative 'bejar/new'
+
 class Bejar
-    
-  def self.init
-    File.new("Bejarfile", "w")
-  end
 
 end

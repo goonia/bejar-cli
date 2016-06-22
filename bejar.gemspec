@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "Bejar cli tools"
   s.authors     = ["Dariush Abbasi"]
   s.email       = 'poshtehani@gmail.com'
-  s.files       = ['bin/bejar', "lib/bejar.rb", "lib/bejar/version.rb"]
+  s.files       = ['bin/bejar', "lib/bejar.rb", "lib/bejar/version.rb", "lib/bejar/init.rb",  "lib/bejar/up.rb",  "lib/bejar/new.rb" ]
   s.require_paths = ["lib"]
   s.homepage    = 'http://github.com/goonia/bejar-cli'
   s.executables = ['bejar']
