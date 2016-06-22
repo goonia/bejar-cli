@@ -102,6 +102,8 @@ class Bejarcli < Thor
         Dir.mkdir(name)
         Dir.chdir(name) do
           f = File.new("#{name}.rb", "w")
+          f.puts("class Bejar")
+          f.puts("end")
           f.close
         end
       end
