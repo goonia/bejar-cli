@@ -20,4 +20,15 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
 
   s.add_development_dependency "rspec", "~> 3.4.0"
+  s.add_development_dependency "rubocop", "0.40.0"
+
+s.add_dependency "thor"
+ s.add_dependency "sinatra"
+ s.add_dependency "haml"
+ s.add_dependency "data_mapper"
+ s.add_dependency "dm-types"
+ s.add_dependency "dm-sqlite-adapter"
+ s.add_dependency "dm-mysql-adapter"
+ s.add_dependency "persian"
+
 end
