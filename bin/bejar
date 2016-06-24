@@ -2,23 +2,22 @@
 require 'bejar'
 require 'thor'
 
+# Bejar CLI Tools
 class Bejarcli < Thor
-
-  desc "init", "init a bejar project"
-  def init project
-    Bejar.init project
+  desc 'init', 'init a bejar project'
+  def init(project)
+    Bejar.init(project)
   end
 
-  desc "up", "start webserver"
+  desc 'up', 'start webserver'
   def up
     Bejar.up
   end
 
-  desc "new", "Create new plugin"
-  def new job, name
-      Bejar.new job, name
+  desc 'new', 'Create new plugin'
+  def new(job, name)
+    Bejar.new(job, name)
   end
-
 end
 
 Bejarcli.start(ARGV)
