@@ -39,7 +39,7 @@ class Bejar
       Dir.chdir(Dir.pwd + '/bejar/views') do
         Dir.mkdir(name)
         Dir.chdir(name) do
-          f = File.new("#{name}.model.rb", 'w')
+          f = File.new("#{name}.haml", 'w')
           f.close
         end
       end

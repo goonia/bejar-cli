@@ -2,7 +2,7 @@
 class Bejar
   def self.up
     f = File.new('config.ru', 'w')
-    f.puts 'Bundler.require\n\n'
+    f.puts 'Bundler.require'
     f.puts "require_relative 'bejar/main'"
 
     # Load Helpers
