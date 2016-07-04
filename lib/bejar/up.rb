@@ -50,6 +50,12 @@ class Bejar
     end
 
     f.puts """
+    DataMapper.finalize
+    DataMapper.auto_upgrade!
+    
+    """
+
+    f.puts """
     run Rack::URLMap.new({
       '/user' => BejarPublic,
       '/' => Bejar
